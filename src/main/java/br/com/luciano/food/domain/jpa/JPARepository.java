@@ -4,7 +4,7 @@ import br.com.luciano.food.domain.entity.CozinhaEntity;
 
 import java.util.List;
 
-public interface MyRepository<T> {
+public interface JPARepository<T> {
 
     T findById(Long id);
 

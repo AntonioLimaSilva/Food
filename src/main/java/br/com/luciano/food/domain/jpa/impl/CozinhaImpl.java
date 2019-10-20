@@ -1,6 +1,7 @@
-package br.com.luciano.food.domain.jpa;
+package br.com.luciano.food.domain.jpa.impl;
 
 import br.com.luciano.food.domain.entity.CozinhaEntity;
+import br.com.luciano.food.domain.jpa.JPARepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
-public class CozinhaImpl implements MyRepository<CozinhaEntity> {
+public class CozinhaImpl implements JPARepository<CozinhaEntity> {
 
     @PersistenceContext
     private EntityManager manager;
