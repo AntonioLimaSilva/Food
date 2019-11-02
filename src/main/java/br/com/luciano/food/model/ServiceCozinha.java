@@ -1,4 +1,4 @@
-package br.com.luciano.food.domain.model;
+package br.com.luciano.food.model;
 
 public enum ServiceCozinha {
 
