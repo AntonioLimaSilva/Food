@@ -8,9 +8,12 @@ import org.springframework.util.StringUtils;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-import java.util.HashMap;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class CozinhaRepositoryImpl implements CozinhaQueries {
@@ -20,24 +23,21 @@ public class CozinhaRepositoryImpl implements CozinhaQueries {
 
     @Override
     public List<CozinhaEntity> find(String nome) {
+        CriteriaBuilder builder = this.manager.getCriteriaBuilder();
+        CriteriaQuery<CozinhaEntity> criteria = builder.createQuery(CozinhaEntity.class);
+        Root<CozinhaEntity> root = criteria.from(CozinhaEntity.class);
 
-        StringBuilder query = new StringBuilder();
-        Map<String, Object> params = new HashMap<>();
+        List<Predicate> predicates = new ArrayList<>();
 
-        query.append("from CozinhaEntity where 0 = 0 ");
-
-        if(!StringUtils.isEmpty(nome)) {
-            query.append("and nome like :nome");
-            params.put("nome", "%" + nome + "%");
+        if(StringUtils.hasText(nome)) {
+            predicates.add(builder.like(root.get("nome"), nome));
         }
 
-        TypedQuery<CozinhaEntity> typedQuery = this.manager.createQuery(query.toString(), CozinhaEntity.class);
+        criteria.where(predicates.toArray(new Predicate[0]));
 
-        params.forEach((k, v) -> {
-            typedQuery.setParameter(k, v);
-        });
+        TypedQuery<CozinhaEntity> query = this.manager.createQuery(criteria);
 
-        return typedQuery.getResultList();
+        return query.getResultList();
     }
 
 }

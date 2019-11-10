@@ -1,6 +1,7 @@
 package br.com.luciano.food.controller;
 
 import br.com.luciano.food.entity.CozinhaEntity;
+import br.com.luciano.food.infrastructure.specification.ObjectSpecifications;
 import br.com.luciano.food.model.CozinhaXmlWrapper;
 import br.com.luciano.food.repository.CozinhaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,7 +33,7 @@ public class CozinhaController {
 
     @GetMapping(value = "/{nome}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<CozinhaEntity> find(@PathVariable String nome) {
-        return this.cozinhaRepository.find(nome);
+        return this.cozinhaRepository.findAll(ObjectSpecifications.withName(nome));
     }
 
     @GetMapping(produces = MediaType.APPLICATION_XML_VALUE)
