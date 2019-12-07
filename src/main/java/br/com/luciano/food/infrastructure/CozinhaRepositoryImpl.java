@@ -1,7 +1,7 @@
 package br.com.luciano.food.infrastructure;
 
-import br.com.luciano.food.entity.CozinhaEntity;
-import br.com.luciano.food.repository.CozinhaQueries;
+import br.com.luciano.food.domain.entities.CozinhaEntity;
+import br.com.luciano.food.domain.repositories.CozinhaQueries;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
